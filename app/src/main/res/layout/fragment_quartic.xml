@@ -23,7 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/quartic_enter"
-        android:layout_below="@id/cubic_format"
+        android:layout_below="@id/quartic_format"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
         android:gravity="center">
@@ -46,16 +46,16 @@
                 android:layout_height="wrap_content"
                 android:inputType="numberSigned|numberDecimal"
                 android:ems="10"
-                android:id="@+id/cubic_a_text"
+                android:id="@+id/quartic_a_text"
                 android:layout_weight="1" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_below="@id/cubic_a"
+            android:layout_below="@id/quartic_a"
             android:layout_marginTop="5dp"
-            android:id="@+id/cubic_b">
+            android:id="@+id/quartic_b">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -77,9 +77,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_below="@id/cubic_b"
+            android:layout_below="@id/quadratic_b"
             android:layout_marginTop="5dp"
-            android:id="@+id/cubic_c">
+            android:id="@+id/quartic_c">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -91,7 +91,7 @@
             <EditText
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/cubic_c_text"
+                android:id="@+id/quartic_c_text"
                 android:inputType="numberSigned|numberDecimal"
                 android:ems="10"
                 android:layout_weight="1" />
@@ -100,9 +100,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_below="@id/cubic_c"
+            android:layout_below="@id/quartic_c"
             android:layout_marginTop="5dp"
-            android:id="@+id/cubic_d">
+            android:id="@+id/quartic_d">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -114,7 +114,7 @@
             <EditText
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/cubic_d_text"
+                android:id="@+id/quartic_d_text"
                 android:inputType="numberSigned|numberDecimal"
                 android:ems="10"
                 android:layout_weight="1" />
@@ -129,7 +129,7 @@
         android:textAlignment="center"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="@color/list_item_title"
-        android:id="@+id/cubic_enter"
+        android:id="@+id/quartic_enter"
         android:background="@color/colorPrimary"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
@@ -137,12 +137,12 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/cubic_enter">
+        android:layout_below="@id/quartic_enter">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/cubic_root"
+            android:id="@+id/quartic_root"
             android:textStyle="bold"
             android:textSize="28sp"
             android:textAlignment="center"
