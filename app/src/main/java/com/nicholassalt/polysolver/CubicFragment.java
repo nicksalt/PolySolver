@@ -92,7 +92,7 @@ public class CubicFragment extends Fragment {
         else {
             ans = threeRoots(g,h,a,b);
             Log.d("TESTING", "H<=0");
-        }
+    }
         return ans;
     }
 

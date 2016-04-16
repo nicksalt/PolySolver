@@ -53,7 +53,7 @@ public class MainActivity extends Activity {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.list_slidermenu);
 
-        navDrawerItems = new ArrayList<NavDrawerItem>();
+        navDrawerItems = new ArrayList<>();
 
         // adding nav drawer items to array
         // Home
@@ -137,10 +137,10 @@ public class MainActivity extends Activity {
             case 3:
                 fragment = new CubicFragment();
                 break;
-            /*case 4:
-                fragment = new PagesFragment();
+            case 4:
+                fragment = new QuarticFragment();
                 break;
-            case 5:
+            /*case 5:
                 fragment = new WhatsHotFragment();
                 break;*/
 

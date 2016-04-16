@@ -22,10 +22,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/cubic_enter"
+        android:id="@+id/cubic_input"
         android:layout_below="@id/cubic_format"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
         android:gravity="center">
 
         <LinearLayout
@@ -54,7 +52,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_below="@id/cubic_a"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="20dp"
             android:id="@+id/cubic_b">
 
             <TextView
@@ -78,7 +76,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_below="@id/cubic_b"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="20dp"
             android:id="@+id/cubic_c">
 
             <TextView
@@ -101,7 +99,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_below="@id/cubic_c"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="20dp"
             android:id="@+id/cubic_d">
 
             <TextView
@@ -120,9 +118,17 @@
                 android:layout_weight="1" />
         </LinearLayout>
     </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingTop="5dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/cubic_solve"
+        android:layout_below="@id/cubic_input">
 
-
-    <Button
+        <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/solve"
@@ -133,11 +139,12 @@
         android:background="@color/colorPrimary"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
+    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/cubic_enter">
+        android:layout_below="@id/cubic_solve">
 
         <TextView
             android:layout_width="wrap_content"
