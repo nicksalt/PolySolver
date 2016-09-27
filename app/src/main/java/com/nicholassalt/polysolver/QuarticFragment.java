@@ -17,6 +17,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by Nick on 2016-02-20.
@@ -24,6 +27,11 @@ import java.util.Arrays;
 public class QuarticFragment extends Fragment {
 
     public QuarticFragment(){}
+    double a;
+    double b;
+    double c;
+    double d;
+    double e;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -64,11 +72,6 @@ public class QuarticFragment extends Fragment {
     }
 
     private String enteredPressed(EditText aInput, EditText bInput, EditText cInput, EditText dInput, EditText eInput){
-        Double a;
-        Double b;
-        Double c;
-        Double d;
-        Double e;
         String ans;
         if (isEmpty(aInput)){
             return "Please Enter an 'a' Value";
@@ -100,128 +103,83 @@ public class QuarticFragment extends Fragment {
         else {
             e = Double.valueOf(eInput.getText().toString());
         }
-        double[] test = solveQuartic(a,b,c,d,e);
+
         ans="";
         Log.d("TESTING", Arrays.toString(test));
-
         return ans;
     }
 
 
-    /**
-     * Solve a quartic equation of the form ax^4+bx^3+cx^2+cx^1+d=0. The roots
-     * are returned in a sorted array of doubles in increasing order.
-     *
-     * @param a coefficient of x^4
-     * @param b coefficient of x^3
-     * @param c coefficient of x^2
-     * @param d coefficient of x^1
-     * @param e coefficient of x^0
-     * @return a sorted array of roots, or <code>null</code> if no solutions
-     *         exist
-     */
-    public static double[] solveQuartic(double a, double b, double c, double d, double e) {
-        double inva = 1 / a;
-        double c1 = b * inva;
-        double c2 = c * inva;
-        double c3 = d * inva;
-        double c4 = e * inva;
-        // cubic resolvant
-        double c12 = c1 * c1;
-        double p = -0.375 * c12 + c2;
-        double q = 0.125 * c12 * c1 - 0.5 * c1 * c2 + c3;
-        double r = -0.01171875 * c12 * c12 + 0.0625 * c12 * c2 - 0.25 * c1 * c3 + c4;
-        double z = solveCubicForQuartic(-0.5 * p, -r, 0.5 * r * p - 0.125 * q * q);
-        double d1 = 2.0 * z - p;
-        if (d1 < 0) {
-            if (d1 > 1.0e-10)
-                d1 = 0;
-            else
-                return null;
+    public final double[] findRealRoots(){
+      if (isBiquadratic(b, d)) {
+          return solveUsingBiquadraticMethod();
+      }
+
+      return solveFerrari();
+    }
+
+    private boolean isBiquadratic(double b1, double d1){
+        return Double.compare(b1, 0) == 0 && Double.compare(d1, 0) == 0;
+    }
+
+    private double[] solveUsingBiquadraticMethod(double a1, double c1, double e1) {
+        if ((Math.pow(c1,2)-(4*a1*e1)) < 0.0){
+            return new double[]{};
         }
-        double d2;
-        if (d1 < 1.0e-10) {
-            d2 = z * z - r;
-            if (d2 < 0)
-                return null;
-            d2 = Math.sqrt(d2);
-        } else {
-            d1 = Math.sqrt(d1);
-            d2 = 0.5 * q / d1;
-        }
-        // setup usefull values for the quadratic factors
-        double q1 = d1 * d1;
-        double q2 = -0.25 * c1;
-        double pm = q1 - 4 * (z - d2);
-        double pp = q1 - 4 * (z + d2);
-        if (pm >= 0 && pp >= 0) {
-            // 4 roots (!)
-            pm = Math.sqrt(pm);
-            pp = Math.sqrt(pp);
-            double[] results = new double[4];
-            results[0] = -0.5 * (d1 + pm) + q2;
-            results[1] = -0.5 * (d1 - pm) + q2;
-            results[2] = 0.5 * (d1 + pp) + q2;
-            results[3] = 0.5 * (d1 - pp) + q2;
-            // tiny insertion sort
-            for (int i = 1; i < 4; i++) {
-                for (int j = i; j > 0 && results[j - 1] > results[j]; j--) {
-                    double t = results[j];
-                    results[j] = results[j - 1];
-                    results[j - 1] = t;
+        else{
+            double[] quadRoots = getQuadRoots(a1, c1, e1);
+            Set<Double> roots = new HashSet<>();
+            for (double quadRoot : quadRoots){
+                if (quadRoot > 0.0) {
+                    roots.add(Math.sqrt(quadRoot));
+                    roots.add(-Math.sqrt(quadRoot));
+                } else if (quadRoot == 0.0) {
+                    roots.add(0.0);
                 }
             }
-            return results;
-        } else if (pm >= 0) {
-            pm = Math.sqrt(pm);
-            double[] results = new double[2];
-            results[0] = -0.5 * (d1 + pm) + q2;
-            results[1] = -0.5 * (d1 - pm) + q2;
-            return results;
-        } else if (pp >= 0) {
-            pp = Math.sqrt(pp);
-            double[] results = new double[2];
-            results[0] = 0.5 * (d1 - pp) + q2;
-            results[1] = 0.5 * (d1 + pp) + q2;
-            return results;
-        }
-        return null;
-    }
-
-    /**
-     * Return only one root for the specified cubic equation. This routine is
-     * only meant to be called by the quartic solver. It assumes the cubic is of
-     * the form: x^3+px^2+qx+r.
-     *
-     * @param p
-     * @param q
-     * @param r
-     * @return
-     */
-    private static final double solveCubicForQuartic(double p, double q, double r) {
-        double A2 = p * p;
-        double Q = (A2 - 3.0 * q) / 9.0;
-        double R = (p * (A2 - 4.5 * q) + 13.5 * r) / 27.0;
-        double Q3 = Q * Q * Q;
-        double R2 = R * R;
-        double d = Q3 - R2;
-        double an = p / 3.0;
-        if (d >= 0) {
-            d = R / Math.sqrt(Q3);
-            double theta = Math.acos(d) / 3.0;
-            double sQ = -2.0 * Math.sqrt(Q);
-            return sQ * Math.cos(theta) - an;
-        } else {
-            double sQ = Math.pow(Math.sqrt(R2 - Q3) + Math.abs(R), 1.0 / 3.0);
-            if (R < 0)
-                return (sQ + Q / sQ) - an;
-            else
-                return -(sQ + Q / sQ) - an;
+            return toDoubleArray(roots);
         }
     }
 
+    private double[] solveFerrari(double a1, double b1, double c1, double d1, double e1) {
+        QuarticFunction dQuatratic = toD();
+        if (isBiquadratic(dQuatratic.b, dQuatratic.d)){
+            double[] dRoots = solveUsingBiquadraticMethod(dQuatratic.a, dQuatratic.c, dQuatratic.e);
+            return reconvertToOriginalRoots(dRoots);
+        }
+        return;
+    }
 
+    private double[] reconvertToOriginalRoots(double[] depressedRoots) {
+        double[] originalRoots = new double[depressedRoots.length];
+        for (int i = 0; i < depressedRoots.length; ++i) {
+            originalRoots[i] = depressedRoots[i] - b / (4.0 * a);
+        }
+        return originalRoots;
+    }
+    public QuarticFunction toD(){
+        double p = (8 * a * c - 3 * Math.pow(b, 2)) / (8 * Math.pow(a, 2));
+        double q = (Math.pow(b, 3) - 4 * a * b * c + 8 * d * Math.pow(a, 2)) / (8 * Math.pow(a, 3));
+        double r = (-3 * Math.pow(b, 4) + 256 * e * Math.pow(a, 3) - 64 * d * b * Math.pow(a, 2) + 16 * c * a
+                * Math.pow(b, 2)) / (256 * Math.pow(a, 4));
+        return new QuarticFunction(1, 0, p, q, r);
+    }
+    private double[] getQuadRoots(double a1, double b1, double c1){
+        double part2 = Math.sqrt(Math.pow(b, 2)-4*a1*c1);
+        double r1 = -b + part2;
+        double r2 = -b - part2;
+        return new double[]{r1, r2};
+    }
 
+    private double[] toDoubleArray(Collection<Double> values) {
+        double[] doubleArray = new double[values.size()];
+        int i = 0;
+        for (double value : values) {
+            doubleArray[i] = value;
+            ++i;
+        }
+        return doubleArray;
+    }
 
     private boolean isEmpty(EditText etText) {
         return etText.getText().toString().trim().length() <= 0 ||
@@ -236,4 +194,22 @@ public class QuarticFragment extends Fragment {
             inputManager.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
         }
     }
+    public class QuarticFunction {
+
+        private final double a;
+        private final double b;
+        private final double c;
+        private final double d;
+        private final double e;
+
+        public QuarticFunction(double a, double b, double c, double d, double e) {
+            this.a = a;
+            this.b = b;
+            this.c = c;
+            this.d = d;
+            this.e = e;
+        }
+    }
+
 }
+
