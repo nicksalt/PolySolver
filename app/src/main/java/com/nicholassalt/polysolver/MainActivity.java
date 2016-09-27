@@ -9,11 +9,14 @@ import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+
+import com.google.android.gms.ads.MobileAds;
 
 import java.util.ArrayList;
 
@@ -40,7 +43,6 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         mTitle = mDrawerTitle = getTitle();
 
         // load slide menu items
@@ -81,6 +83,7 @@ public class MainActivity extends Activity {
         // enabling action bar app icon and behaving it as toggle button
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setHomeButtonEnabled(true);
+
 
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
                 R.drawable.ic_drawer, //nav menu toggle icon
@@ -137,11 +140,11 @@ public class MainActivity extends Activity {
             case 3:
                 fragment = new CubicFragment();
                 break;
-            case 4:
+            /*case 4:
                 fragment = new QuarticFragment();
                 break;
             /*case 5:
-                fragment = new WhatsHotFragment();
+                fragment = new About();
                 break;*/
 
             default:
@@ -165,11 +168,11 @@ public class MainActivity extends Activity {
     }
 
 
-  /*  @Override
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
-    }*/
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -189,13 +192,13 @@ public class MainActivity extends Activity {
     /***
      * Called when invalidateOptionsMenu() is triggered
      */
-   /* @Override
+   @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         // if nav drawer is opened, hide the action items
         boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
         menu.findItem(R.id.action_settings).setVisible(!drawerOpen);
         return super.onPrepareOptionsMenu(menu);
-    }*/
+    }
 
     @Override
     public void setTitle(CharSequence title) {
@@ -221,4 +224,5 @@ public class MainActivity extends Activity {
         // Pass any configuration change to the drawer toggls
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
+
 }

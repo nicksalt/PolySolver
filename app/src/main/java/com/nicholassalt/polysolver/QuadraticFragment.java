@@ -13,6 +13,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 /**
  * Created by Nick on 2016-02-16.
  */
@@ -42,47 +45,37 @@ public class QuadraticFragment extends Fragment {
         return quadView;
     }
 
-    public String enteredPressed(EditText aInput, EditText bInput, EditText cInput){
+    public String enteredPressed(EditText aInput, EditText bInput, EditText cInput) {
         Double a;
         Double b;
         Double c;
         String ans;
-        if (isEmpty(aInput)){
+        if (isEmpty(aInput)) {
             return "Please Enter an 'a' Value";
-        }
-        else{
+        } else {
             a = Double.valueOf(aInput.getText().toString());
         }
-        if (isEmpty(bInput)){
-            b= 0.0;
-        }
-        else{
+        if (isEmpty(bInput)) {
+            b = 0.0;
+        } else {
             b = Double.valueOf(bInput.getText().toString());
         }
-        if (isEmpty(cInput)){
-            c= 0.0;
-        }
-        else{
+        if (isEmpty(cInput)) {
+            c = 0.0;
+        } else {
             c = Double.valueOf(cInput.getText().toString());
         }
-        if (Math.pow(b, 2) < 4*a*c){
-            return "No Real Roots";
+        QuadraticEquation eq = new QuadraticEquation(a, b, c);
+        ArrayList<Double> roots = eq.findRealRoots();
+        Collections.sort(roots);
+        if (roots.size() == 1){
+            return "x = "+String.valueOf(roots.get(0));
         }
-        else{
-            Double tempRoot1 = (-b-(Math.sqrt(Math.pow(b, 2)- 4*a*c)))/(2*a);
-            Double tempRoot2 = (-b+(Math.sqrt(Math.pow(b, 2)- 4*a*c)))/(2*a);
-            String r1 = Double.toString(Math.round(tempRoot1 * 10000.0)/ 10000.0);
-            String r2 = Double.toString(Math.round(tempRoot2 * 10000.0)/ 10000.0);
-            if (r1.equals(r2)){
-                ans = "x = " + r1;
-            }
-            else{
-                ans = "x = " + r1 + " & " + r2;
-            }
+        else if (roots.size() == 2){
+            return "x = "+String.valueOf(roots.get(0) + " & " + String.valueOf(roots.get(1)));
         }
-        return ans;
+        return "No Real Roots";
     }
-
 
     private boolean isEmpty(EditText etText) {
         return etText.getText().toString().trim().length() <= 0 ||

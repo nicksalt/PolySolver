@@ -2,15 +2,15 @@
 <resources>
 
     <string name="app_name">PolySolver</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_decimal">Decimal Places</string>
     <string name="hello_world">Hello world!</string>
     <string name="solve">"    Solve    "</string>
     <string name="linear_format">mx + b = 0</string>
     <string name="quadratic_format"><sup><small>5</small></sup></string>
     <string name="drawer_open">Slider Menu Opened</string>
     <string name="drawer_close">Slider Menu Closed</string>
-
-    <!-- Nav Drawer Menu Items -->
+    <string name="banner_ad_unit_linear">ca-app-pub-6595053800412592/9295028062</string>
+    <!-- Nav Drawer Menu Items  ca-app-pub-6595053800412592/-->
     <string-array name="nav_drawer_items">
         <item>Home</item>
         <item >Linear</item>

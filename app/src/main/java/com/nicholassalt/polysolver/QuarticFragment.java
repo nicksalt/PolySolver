@@ -1,4 +1,4 @@
-package com.nicholassalt.polysolver;
+/*package com.nicholassalt.polysolver;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -21,10 +21,10 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
+
  * Created by Nick on 2016-02-20.
  */
-public class QuarticFragment extends Fragment {
+/*public class QuarticFragment extends Fragment {
 
     public QuarticFragment(){}
     double a;
@@ -103,9 +103,16 @@ public class QuarticFragment extends Fragment {
         else {
             e = Double.valueOf(eInput.getText().toString());
         }
-
-        ans="";
-        Log.d("TESTING", Arrays.toString(test));
+        double[] realRoots = findRealRoots();
+        ans = "x = ";
+        for (int i=0; i < realRoots.length; i++){
+            if (i != (realRoots.length - 1)) {
+                ans += (String.valueOf(realRoots[i]) + ", ");
+            }
+            else{
+                ans += (String.valueOf(realRoots[i]));
+            }
+        }
         return ans;
     }
 
@@ -142,12 +149,23 @@ public class QuarticFragment extends Fragment {
     }
 
     private double[] solveFerrari(double a1, double b1, double c1, double d1, double e1) {
-        QuarticFunction dQuatratic = toD();
-        if (isBiquadratic(dQuatratic.b, dQuatratic.d)){
-            double[] dRoots = solveUsingBiquadraticMethod(dQuatratic.a, dQuatratic.c, dQuatratic.e);
+        QuarticFunction dQuartic = toD();
+        if (isBiquadratic(dQuartic.b, dQuartic.d)){
+            double[] dRoots = solveUsingBiquadraticMethod(dQuartic.a, dQuartic.c, dQuartic.e);
             return reconvertToOriginalRoots(dRoots);
         }
+        double y = findFerraryY(dQuartic);
+
         return;
+    }
+
+    private double findFerraryY(QuarticFunction depressedQuartic) {
+        double a3 = 1.0;
+        double a2 = 5.0 / 2.0 * depressedQuartic.c;
+        double a1 = 2.0 * Math.pow(depressedQuartic.c, 2.0) - depressedQuartic.e;
+        double a0 = Math.pow(depressedQuartic.c, 3.0) / 2.0 - depressedQuartic.c * depressedQuartic.e / 2.0
+                - Math.pow(depressedQuartic.d, 2.0) / 8.0;
+
     }
 
     private double[] reconvertToOriginalRoots(double[] depressedRoots) {
@@ -210,6 +228,38 @@ public class QuarticFragment extends Fragment {
             this.e = e;
         }
     }
+    public class CubicFunction {
 
+        private final double a;
+        private final double b;
+        private final double c;
+        private final double d;
+
+        public CubicFunction(double a, double b, double c, double d) {
+            this.a = a;
+            this.b = b;
+            this.c = c;
+            this.d = d;
+        }
+
+        public double[] findRealRoots(){
+            Double f = ((3 * c / a) - (Math.pow(b, 2) / Math.pow(a, 2)))/3;
+            Double g = ((2 * Math.pow(b, 3) / Math.pow(a, 3)) - (9 * b * c / Math.pow(a, 2)) + (27 * d / a)) / 27;
+            Double h = (Math.pow(g, 2) / 4) + (Math.pow(f.doubleValue(),3)/27);
+
+
+            if (h>0){
+                Log.d("TESTING", "H>0");
+                ans = oneRoot(g,h,a,b);
+            }
+            else if (h==0  && f==0 && g==0){
+                ans = threeEqualRoots(a,d);
+            }
+            else {
+                ans = threeRoots(g,h,a,b);
+                Log.d("TESTING", "H<=0");
+            }
+        }
+    }
 }
-
+*/

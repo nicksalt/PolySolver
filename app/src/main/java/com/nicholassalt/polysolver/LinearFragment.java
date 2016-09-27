@@ -12,6 +12,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 /**
  * Created by Nick on 2016-02-18.
  */
@@ -23,6 +26,9 @@ public class LinearFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View linearView = inflater.inflate(R.layout.fragment_linear, container, false);
+        AdView mAdView = (AdView) linearView.findViewById(R.id.adView_linear);
+        AdRequest adRequest = new AdRequest.Builder().addTestDevice("CF6F308AE78A3AFECCB00B6092291563").build();
+        mAdView.loadAd(adRequest);
         final TextView root = (TextView) linearView.findViewById(R.id.linear_root);
         Button enter = (Button) linearView.findViewById(R.id.linear_enter);
         final EditText mInput = (EditText) linearView.findViewById(R.id.linear_m_text);
@@ -49,8 +55,8 @@ public class LinearFragment extends Fragment {
         } else {
             b = Double.valueOf(bInput.getText().toString());
         }
-        Double root = Math.round(-b/m * 10000.0)/ 10000.0;
-        return "x = " + Double.toString(root);
+        LinearEquation eq = new LinearEquation(m, b);
+        return "x = " + Double.toString(eq.getRoot());
     }
 
     private boolean isEmpty(EditText etText) {
