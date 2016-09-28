@@ -1,7 +1,6 @@
 package com.nicholassalt.polysolver;
 
 import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -34,27 +33,20 @@ public class QuarticEquation {
 
     public ArrayList<Double> findRealRoots() {
         if (Math.abs(a) < NEAR_ZERO) {
-            Log.d("Root", "CUBIC");
             return new CubicEquation(b, c, d, e, decimal).findRoots();
         }
-
         if (isBiquadratic()) {
-            Log.d("Root", "BiQuad");
             return solveUsingBiquadraticMethod();
         }
-
         return solveUsingFerrariMethodWikipedia();
     }
-
     private ArrayList<Double> solveUsingFerrariMethodWikipedia() {
-        // http://en.wikipedia.org/wiki/Quartic_function#Ferrari.27s_solution
+        // Using Ferrari method from wikipedia
         QuarticEquation depressedQuartic = toDepressed();
         if (depressedQuartic.isBiquadratic()) {
-            Log.d("Root", "Depressed Bio QUad");
             ArrayList<Double> depressedRoots = depressedQuartic.solveUsingBiquadraticMethod();
             return reconvertToOriginalRoots(depressedRoots);
         }
-        Log.d("Root", "Long");
         double y = findFerraryY(depressedQuartic);
         double originalRootConversionPart = -b / (4.0 * a);
         double firstPart = Math.sqrt(depressedQuartic.c + 2.0 * y);
@@ -77,7 +69,6 @@ public class QuarticEquation {
     }
 
     private ArrayList<Double> reconvertToOriginalRoots(ArrayList<Double> depressedRoots) {
-        //double[] originalRoots = new double[depressedRoots.length];
         ArrayList<Double> originalRoots = new ArrayList<>();
         for (double depressedRoot : depressedRoots) {
             originalRoots.add(depressedRoot - b / (4.0 * a));
@@ -100,15 +91,12 @@ public class QuarticEquation {
                 return y;
             }
         }
-        throw new IllegalStateException("Ferrari method should have at least one y");
+        throw new IllegalStateException("Should have at least one y");
     }
 
     private ArrayList<Double> solveUsingBiquadraticMethod() {
         QuadraticEquation quadraticEquation = new QuadraticEquation(a, c, e, 15);
-        Log.d("Root", String.valueOf(a)+" "+String.valueOf(c)+" "+String.valueOf(e)+" "+
-                String.valueOf(quadraticEquation.check));
         if (!quadraticEquation.hasRoots()) {
-            Log.d("Root", "Quad doesnt have roots");
             return new ArrayList<Double>() {};
         }
         ArrayList<Double> quadraticRoots = quadraticEquation.findRealRoots();
@@ -127,7 +115,6 @@ public class QuarticEquation {
     }
 
     private QuarticEquation toDepressed() {
-        // http://en.wikipedia.org/wiki/Quartic_function#Converting_to_a_depressed_quartic
         double p = (8.0 * a * c - 3.0 * Math.pow(b, 2.0)) / (8.0 * Math.pow(a, 2.0));
         double q = (Math.pow(b, 3.0) - 4.0 * a * b * c + 8.0 * d * Math.pow(a, 2.0)) / (8.0 * Math.pow(a, 3.0));
         double r = (-3.0 * Math.pow(b, 4.0) + 256.0 * e * Math.pow(a, 3.0) - 64.0 * d * b * Math.pow(a, 2.0) + 16.0 * c
@@ -152,7 +139,6 @@ public class QuarticEquation {
 
     private ArrayList<Double> toDoubleArrayList(Collection<Double> values) {
         ArrayList<Double> doubleArrayList = new ArrayList<>();
-
         for (double value : values) {
             value = Math.round(value*decimal)/decimal;
             doubleArrayList.add(value);
