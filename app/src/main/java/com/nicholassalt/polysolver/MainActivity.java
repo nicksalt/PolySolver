@@ -1,6 +1,7 @@
 package com.nicholassalt.polysolver;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.res.Configuration;
@@ -13,10 +14,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.NumberPicker;
 
-
-import com.google.android.gms.ads.MobileAds;
 
 import java.util.ArrayList;
 
@@ -140,7 +141,7 @@ public class MainActivity extends Activity {
             case 3:
                 fragment = new CubicFragment();
                 break;
-            /*case 4:
+            case 4:
                 fragment = new QuarticFragment();
                 break;
             /*case 5:
@@ -166,8 +167,35 @@ public class MainActivity extends Activity {
             Log.e("MainActivity", "Error in creating fragment");
         }
     }
+    public void showDecimalMenu(){
 
-
+        final Dialog d = new Dialog(MainActivity.this);
+        d.setTitle("NumberPicker");
+        d.setContentView(R.layout.decimal_menu);
+        Button b1 = (Button) d.findViewById(R.id.button1);
+        Button b2 = (Button) d.findViewById(R.id.button2);
+        final NumberPicker np = (NumberPicker) d.findViewById(R.id.numberPicker1);
+        np.setMaxValue(5);
+        np.setMinValue(1);
+        np.setValue(3);
+        np.setWrapSelectorWheel(false);
+        b1.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v) {
+                Log.d("Decimal", String.valueOf(np.getValue()));
+                d.dismiss();
+            }
+        });
+        b2.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v) {
+                d.dismiss();
+            }
+        });
+        d.show();
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
@@ -182,7 +210,8 @@ public class MainActivity extends Activity {
         }
         // Handle action bar actions click
         switch (item.getItemId()) {
-            case R.id.action_settings:
+            case R.id.action_decimal:
+                showDecimalMenu();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -196,7 +225,7 @@ public class MainActivity extends Activity {
     public boolean onPrepareOptionsMenu(Menu menu) {
         // if nav drawer is opened, hide the action items
         boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
-        menu.findItem(R.id.action_settings).setVisible(!drawerOpen);
+        menu.findItem(R.id.action_decimal).setVisible(!drawerOpen);
         return super.onPrepareOptionsMenu(menu);
     }
 

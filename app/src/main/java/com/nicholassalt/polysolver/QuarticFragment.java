@@ -1,4 +1,4 @@
-/*package com.nicholassalt.polysolver;
+package com.nicholassalt.polysolver;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -16,15 +16,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
 
- * Created by Nick on 2016-02-20.
+ /** Created by Nick on 2016-02-20.
  */
-/*public class QuarticFragment extends Fragment {
+public class QuarticFragment extends Fragment {
 
     public QuarticFragment(){}
     double a;
@@ -51,7 +53,7 @@ import java.util.Set;
         setEquation(equation, dpHeight);
         equation.setText(Html.fromHtml("ax" + "<small>" + "<sup>" + 4 +
                 "</sup>" + "</small>" +" + bx" + "<small>" + "<sup>" + 3 + "</sup>" + "</small>"
-                + " + cx" + "<small>" + "<sup>" + 2 + "</sup>" + "</small>" + " + d + e = 0"));
+                + " + cx" + "<small>" + "<sup>" + 2 + "</sup>" + "</small>" + " + dx + e = 0"));
         enter.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 hideKeyboard(getActivity());
@@ -71,195 +73,73 @@ import java.util.Set;
                 + " + cx" + "<small>" + "<sup>" + 2 + "</sup>" + "</small>" + " + d + e = 0"));
     }
 
-    private String enteredPressed(EditText aInput, EditText bInput, EditText cInput, EditText dInput, EditText eInput){
-        String ans;
-        if (isEmpty(aInput)){
+    private String enteredPressed(EditText aInput, EditText bInput, EditText cInput, EditText dInput, EditText eInput) {
+        String ans = "x = ";
+        if (isEmpty(aInput)) {
             return "Please Enter an 'a' Value";
-        }
-        else{
+        } else {
             a = Double.valueOf(aInput.getText().toString());
         }
-        if (isEmpty(bInput)){
-            b= 0.0;
-        }
-        else{
+        if (isEmpty(bInput)) {
+            b = 0.0;
+        } else {
             b = Double.valueOf(bInput.getText().toString());
         }
-        if (isEmpty(cInput)){
-            c= 0.0;
-        }
-        else{
+        if (isEmpty(cInput)) {
+            c = 0.0;
+        } else {
             c = Double.valueOf(cInput.getText().toString());
         }
-        if (isEmpty(dInput)){
+        if (isEmpty(dInput)) {
             d = 0.0;
-        }
-        else{
+        } else {
             d = Double.valueOf(dInput.getText().toString());
         }
-        if (isEmpty(eInput)){
-            e=0.0;
+        if (isEmpty(eInput)) {
+            CubicEquation eq = new CubicEquation(a, b, c, d);
+            ArrayList<Double> roots = eq.findRoots();
+            Collections.sort(roots);
+            if (! roots.contains(0.0)){
+                roots.add(0.0);
+            }
+            if (roots.size() > 1){
+                for (int i = 0; i < roots.size()-1; i++) {
+                    ans += String.valueOf(roots.get(i)) + ", ";
+                }
+            }
+            return  ans + String.valueOf(roots.get(roots.size()-1));
         }
         else {
             e = Double.valueOf(eInput.getText().toString());
         }
-        double[] realRoots = findRealRoots();
-        ans = "x = ";
-        for (int i=0; i < realRoots.length; i++){
-            if (i != (realRoots.length - 1)) {
-                ans += (String.valueOf(realRoots[i]) + ", ");
+        QuarticEquation quarticEquation = new QuarticEquation(a, b, c, d, e);
+        ArrayList<Double> roots = quarticEquation.findRealRoots();
+        for (double root : roots){
+            Log.d("Root", String.valueOf(root));
+        }
+        Collections.sort(roots);
+        if (roots.size() > 0){
+            for (int i = 0; i < roots.size()-1; i++) {
+                ans += String.valueOf(roots.get(i)) + ", ";
             }
-            else{
-                ans += (String.valueOf(realRoots[i]));
-            }
+            return  ans + String.valueOf(roots.get(roots.size()-1));
         }
-        return ans;
+        return "No Real Roots";
     }
 
+     private boolean isEmpty(EditText etText) {
+         return etText.getText().toString().trim().length() <= 0 ||
+                 Double.valueOf(etText.getText().toString()) == 0.0;
+     }
 
-    public final double[] findRealRoots(){
-      if (isBiquadratic(b, d)) {
-          return solveUsingBiquadraticMethod();
-      }
-
-      return solveFerrari();
-    }
-
-    private boolean isBiquadratic(double b1, double d1){
-        return Double.compare(b1, 0) == 0 && Double.compare(d1, 0) == 0;
-    }
-
-    private double[] solveUsingBiquadraticMethod(double a1, double c1, double e1) {
-        if ((Math.pow(c1,2)-(4*a1*e1)) < 0.0){
-            return new double[]{};
-        }
-        else{
-            double[] quadRoots = getQuadRoots(a1, c1, e1);
-            Set<Double> roots = new HashSet<>();
-            for (double quadRoot : quadRoots){
-                if (quadRoot > 0.0) {
-                    roots.add(Math.sqrt(quadRoot));
-                    roots.add(-Math.sqrt(quadRoot));
-                } else if (quadRoot == 0.0) {
-                    roots.add(0.0);
-                }
-            }
-            return toDoubleArray(roots);
-        }
-    }
-
-    private double[] solveFerrari(double a1, double b1, double c1, double d1, double e1) {
-        QuarticFunction dQuartic = toD();
-        if (isBiquadratic(dQuartic.b, dQuartic.d)){
-            double[] dRoots = solveUsingBiquadraticMethod(dQuartic.a, dQuartic.c, dQuartic.e);
-            return reconvertToOriginalRoots(dRoots);
-        }
-        double y = findFerraryY(dQuartic);
-
-        return;
-    }
-
-    private double findFerraryY(QuarticFunction depressedQuartic) {
-        double a3 = 1.0;
-        double a2 = 5.0 / 2.0 * depressedQuartic.c;
-        double a1 = 2.0 * Math.pow(depressedQuartic.c, 2.0) - depressedQuartic.e;
-        double a0 = Math.pow(depressedQuartic.c, 3.0) / 2.0 - depressedQuartic.c * depressedQuartic.e / 2.0
-                - Math.pow(depressedQuartic.d, 2.0) / 8.0;
-
-    }
-
-    private double[] reconvertToOriginalRoots(double[] depressedRoots) {
-        double[] originalRoots = new double[depressedRoots.length];
-        for (int i = 0; i < depressedRoots.length; ++i) {
-            originalRoots[i] = depressedRoots[i] - b / (4.0 * a);
-        }
-        return originalRoots;
-    }
-    public QuarticFunction toD(){
-        double p = (8 * a * c - 3 * Math.pow(b, 2)) / (8 * Math.pow(a, 2));
-        double q = (Math.pow(b, 3) - 4 * a * b * c + 8 * d * Math.pow(a, 2)) / (8 * Math.pow(a, 3));
-        double r = (-3 * Math.pow(b, 4) + 256 * e * Math.pow(a, 3) - 64 * d * b * Math.pow(a, 2) + 16 * c * a
-                * Math.pow(b, 2)) / (256 * Math.pow(a, 4));
-        return new QuarticFunction(1, 0, p, q, r);
-    }
-    private double[] getQuadRoots(double a1, double b1, double c1){
-        double part2 = Math.sqrt(Math.pow(b, 2)-4*a1*c1);
-        double r1 = -b + part2;
-        double r2 = -b - part2;
-        return new double[]{r1, r2};
-    }
-
-    private double[] toDoubleArray(Collection<Double> values) {
-        double[] doubleArray = new double[values.size()];
-        int i = 0;
-        for (double value : values) {
-            doubleArray[i] = value;
-            ++i;
-        }
-        return doubleArray;
-    }
-
-    private boolean isEmpty(EditText etText) {
-        return etText.getText().toString().trim().length() <= 0 ||
-                Double.valueOf(etText.getText().toString()) == 0.0 ;
-    }
-
-    private static void hideKeyboard(Activity activity) {
-        // Check if no view has focus:
-        View view = activity.getCurrentFocus();
-        if (view != null) {
-            InputMethodManager inputManager = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
-            inputManager.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-        }
-    }
-    public class QuarticFunction {
-
-        private final double a;
-        private final double b;
-        private final double c;
-        private final double d;
-        private final double e;
-
-        public QuarticFunction(double a, double b, double c, double d, double e) {
-            this.a = a;
-            this.b = b;
-            this.c = c;
-            this.d = d;
-            this.e = e;
-        }
-    }
-    public class CubicFunction {
-
-        private final double a;
-        private final double b;
-        private final double c;
-        private final double d;
-
-        public CubicFunction(double a, double b, double c, double d) {
-            this.a = a;
-            this.b = b;
-            this.c = c;
-            this.d = d;
-        }
-
-        public double[] findRealRoots(){
-            Double f = ((3 * c / a) - (Math.pow(b, 2) / Math.pow(a, 2)))/3;
-            Double g = ((2 * Math.pow(b, 3) / Math.pow(a, 3)) - (9 * b * c / Math.pow(a, 2)) + (27 * d / a)) / 27;
-            Double h = (Math.pow(g, 2) / 4) + (Math.pow(f.doubleValue(),3)/27);
+     private static void hideKeyboard(Activity activity) {
+         // Check if no view has focus:
+         View view = activity.getCurrentFocus();
+         if (view != null) {
+             InputMethodManager inputManager = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+             inputManager.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+         }
+     }
+ }
 
 
-            if (h>0){
-                Log.d("TESTING", "H>0");
-                ans = oneRoot(g,h,a,b);
-            }
-            else if (h==0  && f==0 && g==0){
-                ans = threeEqualRoots(a,d);
-            }
-            else {
-                ans = threeRoots(g,h,a,b);
-                Log.d("TESTING", "H<=0");
-            }
-        }
-    }
-}
-*/
