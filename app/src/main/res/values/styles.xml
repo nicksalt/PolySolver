@@ -23,8 +23,7 @@
 
     </style>
     <style name="DecimalMenu" parent="@android:style/Theme.Dialog">
-        <item name="android:background">@color/list_item_title</item>
-
+        <item name="android:colorForeground">@color/colorPrimary</item>
     </style>
 
 

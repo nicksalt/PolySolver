@@ -3,6 +3,7 @@ package com.nicholassalt.polysolver;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -13,22 +14,31 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 import java.util.ArrayList;
 import java.util.Collections;
+
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * Created by Nick on 2016-02-16.
  */
 public class QuadraticFragment extends Fragment {
 
+    SharedPreferences myPrefs;
     public QuadraticFragment(){}
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         View quadView = inflater.inflate(R.layout.fragment_quadratic, container, false);
+        AdView mAdView = (AdView) quadView.findViewById(R.id.adView_quadratic);
+        AdRequest adRequest = new AdRequest.Builder().addTestDevice("CF6F308AE78A3AFECCB00B6092291563").build();
+        mAdView.loadAd(adRequest);
+        myPrefs = getActivity().getSharedPreferences("myPrefs", MODE_PRIVATE);
         TextView equation = (TextView) quadView.findViewById(R.id.quadratic_format);
         final TextView root = (TextView) quadView.findViewById(R.id.quadratic_root);
         Button enter = (Button) quadView.findViewById(R.id.quadratic_enter);
@@ -65,7 +75,7 @@ public class QuadraticFragment extends Fragment {
         } else {
             c = Double.valueOf(cInput.getText().toString());
         }
-        QuadraticEquation eq = new QuadraticEquation(a, b, c);
+        QuadraticEquation eq = new QuadraticEquation(a, b, c, myPrefs.getInt("decimal", 3));
         ArrayList<Double> roots = eq.findRealRoots();
         Collections.sort(roots);
         if (roots.size() == 1){

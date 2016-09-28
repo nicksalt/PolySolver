@@ -21,19 +21,21 @@ public class QuarticEquation {
     private double c;
     private double d;
     private double e;
+    double decimal;
 
-    public QuarticEquation(double a, double b, double c, double d, double e) {
+    public QuarticEquation(double a, double b, double c, double d, double e, double decimal) {
         this.a = a;
         this.b = b;
         this.c = c;
         this.d = d;
         this.e = e;
+        this.decimal = Math.pow(10, decimal);
     }
 
     public ArrayList<Double> findRealRoots() {
         if (Math.abs(a) < NEAR_ZERO) {
             Log.d("Root", "CUBIC");
-            return new CubicEquation(b, c, d, e).findRoots();
+            return new CubicEquation(b, c, d, e, decimal).findRoots();
         }
 
         if (isBiquadratic()) {
@@ -90,7 +92,7 @@ public class QuarticEquation {
         double a0 = Math.pow(depressedQuartic.c, 3.0) / 2.0 - depressedQuartic.c * depressedQuartic.e / 2.0
                 - Math.pow(depressedQuartic.d, 2.0) / 8.0;
 
-        CubicEquation cubicEquation = new CubicEquation(a3, a2, a1, a0);
+        CubicEquation cubicEquation = new CubicEquation(a3, a2, a1, a0, 15);
         ArrayList<Double> roots = cubicEquation.findRoots();
 
         for (double y : roots) {
@@ -102,7 +104,7 @@ public class QuarticEquation {
     }
 
     private ArrayList<Double> solveUsingBiquadraticMethod() {
-        QuadraticEquation quadraticEquation = new QuadraticEquation(a, c, e);
+        QuadraticEquation quadraticEquation = new QuadraticEquation(a, c, e, 15);
         Log.d("Root", String.valueOf(a)+" "+String.valueOf(c)+" "+String.valueOf(e)+" "+
                 String.valueOf(quadraticEquation.check));
         if (!quadraticEquation.hasRoots()) {
@@ -113,8 +115,8 @@ public class QuarticEquation {
         Set<Double> roots = new HashSet<>();
         for (double quadraticRoot : quadraticRoots) {
             if (quadraticRoot > 0.0) {
-                roots.add((double) Math.round(Math.sqrt(quadraticRoot)*1000.0)/1000.0);
-                roots.add((double) -Math.round(Math.sqrt(quadraticRoot)*1000.0)/1000.0);
+                roots.add((double) Math.round(Math.sqrt(quadraticRoot)*decimal)/decimal);
+                roots.add((double) -Math.round(Math.sqrt(quadraticRoot)*decimal)/decimal);
             } else if (quadraticRoot == 0.00) {
                 roots.add(0.00);
             }
@@ -131,7 +133,7 @@ public class QuarticEquation {
         double r = (-3.0 * Math.pow(b, 4.0) + 256.0 * e * Math.pow(a, 3.0) - 64.0 * d * b * Math.pow(a, 2.0) + 16.0 * c
                 * a * Math.pow(b, 2.0))
                 / (256.0 * Math.pow(a, 4.0));
-        return new QuarticEquation(1.0, 0.0, p, q, r);
+        return new QuarticEquation(1.0, 0.0, p, q, r, 15);
     }
 
 
@@ -152,7 +154,7 @@ public class QuarticEquation {
         ArrayList<Double> doubleArrayList = new ArrayList<>();
 
         for (double value : values) {
-            value = Math.round(value*1000.0)/1000.0;
+            value = Math.round(value*decimal)/decimal;
             doubleArrayList.add(value);
         }
         return doubleArrayList;

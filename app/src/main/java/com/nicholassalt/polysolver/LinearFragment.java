@@ -3,10 +3,12 @@ package com.nicholassalt.polysolver;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,11 +17,14 @@ import android.widget.TextView;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
+import static android.content.Context.MODE_PRIVATE;
+
 /**
  * Created by Nick on 2016-02-18.
  */
 public class LinearFragment extends Fragment {
 
+    SharedPreferences myPrefs;
     public LinearFragment(){}
 
     @Override
@@ -29,6 +34,7 @@ public class LinearFragment extends Fragment {
         AdView mAdView = (AdView) linearView.findViewById(R.id.adView_linear);
         AdRequest adRequest = new AdRequest.Builder().addTestDevice("CF6F308AE78A3AFECCB00B6092291563").build();
         mAdView.loadAd(adRequest);
+        myPrefs = getActivity().getSharedPreferences("myPrefs", MODE_PRIVATE);
         final TextView root = (TextView) linearView.findViewById(R.id.linear_root);
         Button enter = (Button) linearView.findViewById(R.id.linear_enter);
         final EditText mInput = (EditText) linearView.findViewById(R.id.linear_m_text);
@@ -39,6 +45,7 @@ public class LinearFragment extends Fragment {
                 root.setText(enteredPressed(mInput, bInput));
             }
         });
+
         return linearView;
     }
 
@@ -55,7 +62,7 @@ public class LinearFragment extends Fragment {
         } else {
             b = Double.valueOf(bInput.getText().toString());
         }
-        LinearEquation eq = new LinearEquation(m, b);
+        LinearEquation eq = new LinearEquation(m, b, myPrefs.getInt("decimal", 3));
         return "x = " + Double.toString(eq.getRoot());
     }
 

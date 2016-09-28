@@ -1,18 +1,24 @@
 package com.nicholassalt.polysolver;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
@@ -26,7 +32,8 @@ public class MainActivity extends Activity {
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
-
+    SharedPreferences myPrefs;
+    SharedPreferences.Editor e;
     // nav drawer title
     private CharSequence mDrawerTitle;
 
@@ -44,6 +51,13 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        myPrefs = getSharedPreferences("myPrefs", MODE_PRIVATE);
+        e = myPrefs.edit();
+        if (myPrefs.getBoolean("appHasNotRanBefore", true)){
+            e.putInt("decimal", 4);
+        }
+        e.putBoolean("appHasNotRanBefore", false);
+        e.apply();
         mTitle = mDrawerTitle = getTitle();
 
         // load slide menu items
@@ -168,33 +182,50 @@ public class MainActivity extends Activity {
         }
     }
     public void showDecimalMenu(){
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-        final Dialog d = new Dialog(MainActivity.this);
-        d.setTitle("NumberPicker");
-        d.setContentView(R.layout.decimal_menu);
-        Button b1 = (Button) d.findViewById(R.id.button1);
-        Button b2 = (Button) d.findViewById(R.id.button2);
-        final NumberPicker np = (NumberPicker) d.findViewById(R.id.numberPicker1);
-        np.setMaxValue(5);
+        LayoutInflater inflater = this.getLayoutInflater();
+        View layout = inflater.inflate(R.layout.decimal_menu, null);
+
+        Button b1 = (Button) layout.findViewById(R.id.decimal_cancel);
+        Button b2 = (Button) layout.findViewById(R.id.decimal_set);
+        final NumberPicker np = (NumberPicker) layout.findViewById(R.id.numberPicker1);
+        builder.setView(layout);
+        final AlertDialog alertDialog = builder.create();
+        np.setMaxValue(10);
         np.setMinValue(1);
-        np.setValue(3);
+        builder.setView(inflater.inflate(R.layout.decimal_menu, null));
+        builder.create();
+
+        np.setValue(myPrefs.getInt("decimal", 3));
+        //np.setValue(myPrefs.getInt("decimal", 3));
         np.setWrapSelectorWheel(false);
-        b1.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v) {
-                Log.d("Decimal", String.valueOf(np.getValue()));
-                d.dismiss();
-            }
-        });
         b2.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v) {
-                d.dismiss();
+                Log.d("Decimal", String.valueOf(np.getValue()));
+                e.putInt("decimal", np.getValue());
+                e.apply();
+                alertDialog.dismiss();
             }
         });
-        d.show();
+        b1.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+        alertDialog.show();
+    }
+    public void hideKeyboard() {
+        // Check if no view has focus:
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager inputManager = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputManager.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -206,6 +237,7 @@ public class MainActivity extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
         // toggle nav drawer on selecting action bar app icon/title
         if (mDrawerToggle.onOptionsItemSelected(item)) {
+            hideKeyboard();
             return true;
         }
         // Handle action bar actions click

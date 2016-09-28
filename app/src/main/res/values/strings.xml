@@ -10,6 +10,9 @@
     <string name="drawer_open">Slider Menu Opened</string>
     <string name="drawer_close">Slider Menu Closed</string>
     <string name="banner_ad_unit_linear">ca-app-pub-6595053800412592/9295028062</string>
+    <string name="banner_ad_unit_quadratic">ca-app-pub-6595053800412592/6362007266</string>
+    <string name="banner_ad_unit_cubic">ca-app-pub-6595053800412592/7889112867</string>
+    <string name="banner_ad_unit_quartic">ca-app-pub-6595053800412592/6713430869</string>
     <!-- Nav Drawer Menu Items  ca-app-pub-6595053800412592/-->
     <string-array name="nav_drawer_items">
         <item>Home</item>
