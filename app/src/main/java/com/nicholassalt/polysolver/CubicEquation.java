@@ -1,15 +1,12 @@
 package com.nicholassalt.polysolver;
 
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
-
 import static android.content.Context.MODE_PRIVATE;
 
 /**
@@ -21,9 +18,11 @@ public class CubicEquation {
     private double b;
     private double c;
     private double d;
+   
     private double f;
     private double g;
     private double h;
+   
     double decimal;
 
     public CubicEquation(double a, double b, double c, double d, double decimal){
@@ -37,20 +36,16 @@ public class CubicEquation {
         f = ((3 * c / a) - (Math.pow(b, 2) / Math.pow(a, 2)))/3;
         g = ((2 * Math.pow(b, 3) / Math.pow(a, 3)) - (9 * b * c / Math.pow(a, 2)) + (27 * d / a)) / 27;
         h = (Math.pow(g, 2) / 4) + (Math.pow(f,3)/27);
-        double perError = 0.0000000000000001;
-        Log.d("Root", String.valueOf(f)+" "+String.valueOf(g)+" "+String.valueOf(h));
+        double perError = 0.0000000000000001; //This is to account for double roun
         if (h>perError){
             return oneRoot();
         }
         else if (h==0  && f==0 && g==0){
-            Log.d("Root", "Else if");
             return threeEqualRoots();
         }
         else {
-            Log.d("Root", "Else");
-
             return threeRoots();
-    }
+        }
     }
     private ArrayList<Double> oneRoot() {
         Double R = -(g / 2) + Math.sqrt(h);
