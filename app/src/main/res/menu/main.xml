@@ -3,7 +3,7 @@
     <item
         android:id="@+id/action_decimal"
         android:orderInCategory="100"
-        xlmns:showAsAction="never"
+        xlmns:showAsAction="collapseActionView"
         android:title="@string/action_decimal" />
 
 </menu>

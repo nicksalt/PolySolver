@@ -2,7 +2,6 @@ package com.nicholassalt.polysolver;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
@@ -17,7 +16,6 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -105,16 +103,17 @@ public class MainActivity extends Activity {
                 R.string.app_name, // nav drawer open - description for accessibility
                 R.string.app_name // nav drawer close - description for accessibility
         ){
+            @Override
             public void onDrawerClosed(View view) {
                 getActionBar().setTitle(mTitle);
                 // calling onPrepareOptionsMenu() to show action bar icons
-                //invalidateOptionsMenu();
+                invalidateOptionsMenu();
             }
-
+            @Override
             public void onDrawerOpened(View drawerView) {
                 getActionBar().setTitle(mDrawerTitle);
                 // calling onPrepareOptionsMenu() to hide action bar icons
-                //invalidateOptionsMenu();
+                invalidateOptionsMenu();
             }
         };
         mDrawerLayout.setDrawerListener(mDrawerToggle);
@@ -144,7 +143,7 @@ public class MainActivity extends Activity {
         Fragment fragment = null;
         switch (position) {
             case 0:
-                fragment = new HomeFragment();
+                fragment = new AboutFragment();
                 break;
             case 1:
                 fragment = new LinearFragment();
@@ -261,6 +260,11 @@ public class MainActivity extends Activity {
         return super.onPrepareOptionsMenu(menu);
     }
 
+    /*@Override
+    public void onDrawerOpened(View arg0) {
+        invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+    }*/
+
     @Override
     public void setTitle(CharSequence title) {
         mTitle = title;
@@ -285,5 +289,6 @@ public class MainActivity extends Activity {
         // Pass any configuration change to the drawer toggls
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
+
 
 }
