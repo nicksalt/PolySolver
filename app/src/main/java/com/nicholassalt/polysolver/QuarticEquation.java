@@ -1,8 +1,6 @@
 package com.nicholassalt.polysolver;
 
-import android.util.Log;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -11,7 +9,7 @@ import java.util.Set;
  * Created by Nick on 2016-09-27.
  */
 
-public class QuarticEquation {
+class QuarticEquation {
 
     private static final double NEAR_ZERO = 0.0000001;
 
@@ -20,9 +18,9 @@ public class QuarticEquation {
     private double c;
     private double d;
     private double e;
-    double decimal;
+    private double decimal;
 
-    public QuarticEquation(double a, double b, double c, double d, double e, double decimal) {
+    QuarticEquation(double a, double b, double c, double d, double e, double decimal) {
         this.a = a;
         this.b = b;
         this.c = c;
@@ -127,9 +125,7 @@ public class QuarticEquation {
     private Set<Double> findOnlyRealRoots(double... roots) {
         Set<Double> realRoots = new HashSet<>();
         for (double root : roots) {
-            Log.d("Root in roots", String.valueOf(root));
             if (!Double.isInfinite(root) && !Double.isNaN(root)) {
-                Log.d("This root is finite", String.valueOf(root));
                 realRoots.add(root);
             }
         }

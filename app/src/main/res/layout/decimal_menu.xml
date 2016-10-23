@@ -1,7 +1,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="fill_parent">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -10,7 +9,7 @@
         android:id="@+id/decimal_title"
         android:textSize="16sp"
         android:textStyle="bold"
-        android:text="Select prefered decimal places/percision."
+        android:text="@string/decimal_1"
         android:layout_marginTop="15dp"
         android:layout_alignParentTop="true" />
 
@@ -18,7 +17,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/decimal_faq"
-        android:text="Decimal FAQ"
+        android:text="@string/decimal_2"
         android:textSize="12sp"
         android:layout_marginTop="10dp"
         android:layout_below="@id/decimal_title"
@@ -36,17 +35,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/numberPicker1"
-        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="15dp"
-        android:layout_toRightOf="@+id/numberPicker1"
-        android:text="Cancel" />
+        android:layout_toEndOf="@+id/numberPicker1"
+        android:text="@string/decimal_3" />
 
     <Button
         android:id="@+id/decimal_set"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="16dp"
-        android:text="Set"
+        android:layout_marginStart="16dp"
+        android:text="@string/deciaml_4"
         android:layout_alignBaseline="@+id/decimal_cancel"
         android:layout_alignBottom="@+id/decimal_cancel"
         android:layout_toStartOf="@+id/numberPicker1"

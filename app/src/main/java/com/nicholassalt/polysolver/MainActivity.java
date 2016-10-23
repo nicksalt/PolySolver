@@ -70,19 +70,11 @@ public class MainActivity extends Activity {
 
         navDrawerItems = new ArrayList<>();
 
-        // adding nav drawer items to array
-        // Home
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[0], navMenuIcons.getResourceId(0, -1)));
-        // Find People
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[1], navMenuIcons.getResourceId(1, -1)));
-        // Photos
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[2], navMenuIcons.getResourceId(2, -1)));
-        // Communities, Will add a counter here
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[3], navMenuIcons.getResourceId(3, -1)));
-        // Pages
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[4], navMenuIcons.getResourceId(4, -1)));
-        // What's hot, We  will add a counter here
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[5], navMenuIcons.getResourceId(5, -1)));
 
 
         // Recycle the typed array
@@ -143,23 +135,20 @@ public class MainActivity extends Activity {
         Fragment fragment = null;
         switch (position) {
             case 0:
-                fragment = new AboutFragment();
-                break;
-            case 1:
                 fragment = new LinearFragment();
                 break;
-            case 2:
+            case 1:
                 fragment = new QuadraticFragment();
                 break;
-            case 3:
+            case 2:
                 fragment = new CubicFragment();
                 break;
-            case 4:
+            case 3:
                 fragment = new QuarticFragment();
                 break;
-            /*case 5:
-                fragment = new About();
-                break;*/
+            case 4:
+                fragment = new AboutFragment();
+                break;
 
             default:
                 break;

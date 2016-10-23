@@ -59,7 +59,6 @@ public class QuadraticFragment extends Fragment {
         Double a;
         Double b;
         Double c;
-        String ans;
         if (isEmpty(aInput)) {
             return "Please Enter an 'a' Value";
         } else {
@@ -82,7 +81,7 @@ public class QuadraticFragment extends Fragment {
             return "x = "+String.valueOf(roots.get(0));
         }
         else if (roots.size() == 2){
-            return "x = "+String.valueOf(roots.get(0) + " & " + String.valueOf(roots.get(1)));
+            return "x = "+String.valueOf(roots.get(0) + ", " + String.valueOf(roots.get(1)));
         }
         return "No Real Roots";
     }

@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorPrimaryDark"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="m =" />
+                android:text="@string/m" />
 
             <EditText
                 android:layout_width="0dp"
@@ -62,7 +62,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorPrimaryDark"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="b =" />
+                android:text="@string/b" />
 
             <EditText
                 android:layout_width="0dp"

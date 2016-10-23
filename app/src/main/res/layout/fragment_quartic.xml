@@ -36,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorPrimaryDark"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="a =" />
+                android:text="@string/a" />
 
             <EditText
                 android:layout_width="0dp"
@@ -60,7 +60,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorPrimaryDark"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="b =" />
+                android:text="@string/b" />
 
             <EditText
                 android:layout_width="0dp"
@@ -85,7 +85,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorPrimaryDark"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="c =" />
+                android:text="@string/c" />
 
             <EditText
                 android:layout_width="0dp"
@@ -109,7 +109,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorPrimaryDark"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="d =" />
+                android:text="@string/d" />
 
             <EditText
                 android:layout_width="0dp"
@@ -133,7 +133,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorPrimaryDark"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="e =" />
+                android:text="@string/e" />
 
             <EditText
                 android:layout_width="0dp"

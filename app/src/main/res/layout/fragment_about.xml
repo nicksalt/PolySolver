@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:ads="http://schemas.android.com/apk/res-auto"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:fillViewport="true">
@@ -18,7 +17,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/about_1"
-            android:text="Hello and Welcome to PolySolver."
+            android:text="@string/about_1"
+            android:textAlignment="center"
             android:textSize="19sp"
             android:textStyle="bold"
             android:textColor="@color/text_color"
@@ -27,13 +27,11 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="PolySolver was an app I worked on in high school to use during my math and physics courses. Since then, I have added more complex polynomials and improved the overall layout. "
+            android:text="@string/about_2"
             android:id="@+id/about_2"
             android:lineSpacingExtra="1sp"
             android:textSize="17sp"
             android:layout_marginBottom="15dp"/>
-
-
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -49,7 +47,7 @@
                 android:id="@+id/about_3"
                 android:layout_weight="1"
                 android:lineSpacingExtra="1sp"
-                android:text="If you would like to check out some of my other work or get in contact with me visit my website by tapping on the logo to the right:"
+                android:text="@string/about_3"
                 android:textSize="17sp"
                 android:layout_marginBottom="@dimen/activity_vertical_margin"/>
 
@@ -57,7 +55,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/website_logo"
-                android:layout_marginLeft="10dp"/>
+                android:id="@+id/website"
+                android:layout_marginStart="10dp"
+                android:contentDescription="@string/about_5"
+                android:clickable="true"
+                android:layout_gravity="center" />
         </LinearLayout>
 
         <LinearLayout
@@ -73,7 +75,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:lineSpacingExtra="1sp"
-                android:text="If you would like to check out the source code for this application tap on the GitHub logo to the right:"
+                android:text="@string/about_4"
                 android:textSize="17sp"
                 android:layout_marginBottom="@dimen/activity_vertical_margin"/>
 
@@ -81,10 +83,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/github_icon"
-                android:layout_marginLeft="10dp"/>
+                android:layout_marginStart="10dp"
+                android:contentDescription="@string/about_6"
+                android:id="@+id/github"
+                android:layout_gravity="center"
+                android:clickable="true" />
         </LinearLayout>
-
-
     </LinearLayout>
-
 </ScrollView>

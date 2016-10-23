@@ -3,12 +3,13 @@ package com.nicholassalt.polysolver;
 /**
  * Created by Nick on 2016-02-16.
  */
-public class NavDrawerItem {
+
+class NavDrawerItem {
     private String title;
     private int icon;
     
 
-    public NavDrawerItem(String title, int icon){
+    NavDrawerItem(String title, int icon){
         this.title = title;
         this.icon = icon;
     }
@@ -21,15 +22,5 @@ public class NavDrawerItem {
     public int getIcon(){
         return this.icon;
     }
-
-
-    public void setTitle(String title){
-        this.title = title;
-    }
-
-    public void setIcon(int icon){
-        this.icon = icon;
-    }
-
 
 }

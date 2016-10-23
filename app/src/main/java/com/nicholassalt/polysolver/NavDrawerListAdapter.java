@@ -15,12 +15,12 @@ import java.util.ArrayList;
 /**
  * Created by Nick on 2016-02-16.
  */
-public class NavDrawerListAdapter extends BaseAdapter {
+class NavDrawerListAdapter extends BaseAdapter {
 
     private Context context;
     private ArrayList<NavDrawerItem> navDrawerItems;
 
-    public NavDrawerListAdapter(Context context, ArrayList<NavDrawerItem> navDrawerItems) {
+    NavDrawerListAdapter(Context context, ArrayList<NavDrawerItem> navDrawerItems) {
         this.context = context;
         this.navDrawerItems = navDrawerItems;
     }

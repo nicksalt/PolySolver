@@ -9,13 +9,35 @@
     <string name="quadratic_format"><sup><small>5</small></sup></string>
     <string name="drawer_open">Slider Menu Opened</string>
     <string name="drawer_close">Slider Menu Closed</string>
+
+    <string name="a">a =</string>
+    <string name="b">b =</string>
+    <string name="c">c =</string>
+    <string name="d">d =</string>
+    <string name="e">e =</string>
+    <string name="m">m =</string>
+
+    <string name="decimal_1">Select preferred decimal places/precision.</string>
+    <string name="decimal_2">Decimal FAQ</string>
+    <string name="decimal_3">Cancel</string>
+    <string name="deciaml_4">Set</string>
+
+    <string name="about_1">Hello and Welcome to PolySolver</string>
+    <string name="about_2">PolySolver was an app I worked on in high school to use during my math and physics courses.
+        Since then, I have added more complex polynomials and improved the overall layout.</string>
+    <string name="about_3">If you would like to check out some of my other work or get in contact with me visit my
+        website by tapping on the logo to the right:</string>
+    <string name="about_4">If you would like to check out the source code for this application tap on the GitHub
+        logo to the right:</string>
+    <string name="about_5">http://nicksalt.ca</string>
+    <string name="about_6">http://github.com/nicksalt/PolySolver</string>
+
     <string name="banner_ad_unit_linear">ca-app-pub-6595053800412592/9295028062</string>
     <string name="banner_ad_unit_quadratic">ca-app-pub-6595053800412592/6362007266</string>
     <string name="banner_ad_unit_cubic">ca-app-pub-6595053800412592/7889112867</string>
     <string name="banner_ad_unit_quartic">ca-app-pub-6595053800412592/6713430869</string>
-    <!-- Nav Drawer Menu Items  ca-app-pub-6595053800412592/-->
+
     <string-array name="nav_drawer_items">
-        <item>Home</item>
         <item >Linear</item>
         <item >Quadratic</item>
         <item >Cubic</item>
@@ -23,10 +45,8 @@
         <item >About</item>
     </string-array>
 
-    <!-- Nav Drawer List Item Icons -->
-    <!-- Keep them in order as the titles are in-->
-    <array name="nav_drawer_icons">
-        <item>@drawable/ic_home</item>
+
+    <array name="nav_drawer_icons">]
         <item>@drawable/x</item>
         <item>@drawable/x2</item>
         <item>@drawable/x3</item>
@@ -34,7 +54,7 @@
         <item>@drawable/ic_about</item>
     </array>
 
-    <!-- Content Description -->
+
     <string name="desc_list_item_icon">Item Icon</string>
 
 </resources>
