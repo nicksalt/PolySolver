@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
@@ -47,15 +48,10 @@ public class MainActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
         myPrefs = getSharedPreferences("myPrefs", MODE_PRIVATE);
         e = myPrefs.edit();
-        if (myPrefs.getBoolean("appHasNotRanBefore", true)){
-            e.putInt("decimal", 4);
-        }
-        e.putBoolean("appHasNotRanBefore", false);
-        e.apply();
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
         mTitle = mDrawerTitle = getTitle();
 
         // load slide menu items

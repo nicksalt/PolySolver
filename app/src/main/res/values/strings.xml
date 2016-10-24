@@ -38,11 +38,11 @@
     <string name="banner_ad_unit_quartic">ca-app-pub-6595053800412592/6713430869</string>
 
     <string-array name="nav_drawer_items">
-        <item >Linear</item>
-        <item >Quadratic</item>
-        <item >Cubic</item>
-        <item >Quartic</item>
-        <item >About</item>
+        <item>Linear</item>
+        <item>Quadratic</item>
+        <item>Cubic</item>
+        <item>Quartic</item>
+        <item>About</item>
     </string-array>
 
 

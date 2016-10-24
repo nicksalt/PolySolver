@@ -13,20 +13,11 @@
         android:layout_marginTop="15dp"
         android:layout_alignParentTop="true" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/decimal_faq"
-        android:text="@string/decimal_2"
-        android:textSize="12sp"
-        android:layout_marginTop="10dp"
-        android:layout_below="@id/decimal_title"
-        android:layout_centerHorizontal="true" />
     <NumberPicker
         android:id="@+id/numberPicker1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/decimal_faq"
+        android:layout_below="@id/decimal_title"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp" />
 
