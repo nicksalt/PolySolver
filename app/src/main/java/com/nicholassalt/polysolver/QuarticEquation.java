@@ -11,7 +11,7 @@ import java.util.Set;
 
 class QuarticEquation {
 
-    private static final double NEAR_ZERO = 0.0000001;
+    private static final double NEAR_ZERO = Math.pow(10, -20);
 
     private double a;
     private double b;

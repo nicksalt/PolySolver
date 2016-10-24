@@ -32,6 +32,17 @@
     <string name="about_5">http://nicksalt.ca</string>
     <string name="about_6">http://github.com/nicksalt/PolySolver</string>
 
+    <string name="tutorial_1">Tutorial</string>
+    <string name="tutorial_2">Hello and Welcome to PolySolver.</string>
+    <string name="tutorial_3">This is a short tutorial.</string>
+    <string name="tutorial_4">Tapping up here will let you select all the available polynomials.</string>
+    <string name="tutorial_5">If you want to change the number of decimal places or run this tutorial again, tap up here.</string>
+    <string name="tutorial_6">Got It</string>
+    <string name="tutorial_7">That\'s it. Let\'s get Started!</string>
+    <string name="tutorial_8">Next</string>
+    <string name="tutorial_9">Back</string>
+    <string name="tutorial_10">Got It</string>
+
     <string name="banner_ad_unit_linear">ca-app-pub-6595053800412592/9295028062</string>
     <string name="banner_ad_unit_quadratic">ca-app-pub-6595053800412592/6362007266</string>
     <string name="banner_ad_unit_cubic">ca-app-pub-6595053800412592/7889112867</string>

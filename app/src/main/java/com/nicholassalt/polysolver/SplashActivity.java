@@ -10,8 +10,8 @@ public class SplashActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         setContentView(R.layout.splash);
+        super.onCreate(savedInstanceState);
         SharedPreferences myPrefs = getSharedPreferences("myPrefs", MODE_PRIVATE);
         SharedPreferences.Editor e = myPrefs.edit();
         if (myPrefs.getBoolean("appHasNotRanBefore", true)){
@@ -23,7 +23,7 @@ public class SplashActivity extends AppCompatActivity {
 
                 @Override
                 public void run() {
-                    Intent i = new Intent(SplashActivity.this, MainActivity.class);
+                    Intent i = new Intent(SplashActivity.this, TutorialActivity.class);
                     startActivity(i);
                     finish();
                     overridePendingTransition(0,0);
